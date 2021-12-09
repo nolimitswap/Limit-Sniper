@@ -476,31 +476,6 @@ def decode_key():
     addr = acct.address
     return addr
 
-def auth():
-    my_provider2 = "https://pedantic-montalcini:lair-essay-ranger-rigid-hardy-petted@nd-857-678-344.p2pify.com"
-    client2 = Web3(Web3.HTTPProvider(my_provider2))
-    #print(timestamp(), "Connected to Ethereum BlockChain =", client2.isConnected())
-    # Insert LIMITSWAP Token Contract Here To Calculate Staked Verification
-    address = Web3.toChecksumAddress("0x1712aad2c773ee04bdc9114b32163c058321cd85")
-    abi = standardAbi
-    balanceContract = client2.eth.contract(address=address, abi=abi)
-    decimals = balanceContract.functions.decimals().call()
-    DECIMALS = 10 ** decimals
-
-    # Exception for incorrect Key Input
-    try:
-        decode = decode_key()
-    except Exception:
-        print("There is a problem with your private key : please check if it's correct. Don't enter seed phrase !")
-        logging.info("There is a problem with your private key : please check if it's correct. Don't enter seed phrase !")
-
-    wallet_address = Web3.toChecksumAddress(decode)
-    balance = balanceContract.functions.balanceOf(wallet_address).call()
-    true_balance = balance / DECIMALS
-    print(timestamp(), "Current $LIMIT Tokens Staked =", true_balance)
-    logging.info("Current $LIMIT Tokens Staked = " + str(true_balance))
-    return true_balance
-
 def check_bnb_balance():
     balance = client.eth.getBalance(settings['WALLETADDRESS'])
     print(timestamp(), "Current Wallet Balance is :", Web3.fromWei(balance, 'ether'))
@@ -925,10 +900,10 @@ def run():
 
     userpassword = get_password()
     load_wallet_settings(userpassword)
-    true_balance = auth()
+    true_balance = 100
     save_settings(userpassword)
 
-    true_balance = auth()
+    true_balance = 100
     if true_balance >= 100:
         print(timestamp(), "Sniper Subscription Active")
         print("==================================================================================================================================================================")
